@@ -4,65 +4,115 @@ import { projects } from '@/data/portfolio';
 import { Project } from '@/types';
 
 const statusColors = {
-  LIVE: 'border-terminal-green text-terminal-green',
-  BETA: 'border-terminal-amber text-terminal-amber',
-  IN_DEV: 'border-terminal-cyan text-terminal-cyan',
-  OSS: 'border-terminal-magenta text-terminal-magenta',
+  LIVE: 'border-terminal-primary text-terminal-primary bg-terminal-primary/10',
+  BETA: 'border-terminal-accent text-terminal-accent bg-terminal-accent/10',
+  IN_DEV: 'border-terminal-secondary text-terminal-secondary bg-terminal-secondary/10',
+  OSS: 'border-terminal-error text-terminal-error bg-terminal-error/10',
+};
+
+const statusIcons = {
+  LIVE: '🟢',
+  BETA: '🟡',
+  IN_DEV: '🔵',
+  OSS: '🔴',
 };
 
 const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <div className="border-2 border-terminal-green p-6 text-left transition-all duration-300 relative bg-terminal-green/[0.02] hover:-translate-y-3 hover:shadow-[0_10px_20px_rgba(0,255,0,0.3)] hover:bg-terminal-green/10 group">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-2xl text-terminal-amber">
-          {project.title}
-        </h3>
-        <span className={`text-sm py-1 px-2 border ${statusColors[project.status]}`}>
-          [{project.status}]
-        </span>
+    <article className="group bg-terminal-bg-secondary/30 backdrop-blur-sm rounded-lg border border-terminal-dark-green hover:border-terminal-primary transition-all duration-500 overflow-hidden hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-terminal-primary/20">
+      {/* Project header */}
+      <header className="p-4 sm:p-6 bg-terminal-bg-tertiary/40 border-b border-terminal-dark-green">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
+          <h3 className="text-terminal-accent text-xl sm:text-2xl font-mono font-bold leading-tight">
+            {project.title}
+          </h3>
+          <div className={`inline-flex items-center gap-2 text-xs sm:text-sm py-2 px-3 rounded-full border ${statusColors[project.status]} font-mono font-bold whitespace-nowrap`}>
+            <span>{statusIcons[project.status]}</span>
+            {project.status}
+          </div>
+        </div>
+      </header>
+      
+      {/* Project content */}
+      <div className="p-4 sm:p-6">
+        {/* Description */}
+        <p className="text-terminal-text-secondary leading-relaxed mb-6 text-sm sm:text-base">
+          {project.description}
+        </p>
+        
+        {/* Technologies */}
+        <div className="mb-6">
+          <h4 className="text-terminal-text-primary text-sm font-mono font-bold mb-3 flex items-center">
+            <span className="text-terminal-primary mr-2">⚡</span>
+            Tech Stack
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {project.technologies.map((tech, index) => (
+              <span
+                key={index}
+                className="text-xs sm:text-sm py-1.5 px-3 bg-terminal-bg-secondary/60 border border-terminal-error/50 text-terminal-error rounded-md font-mono hover:border-terminal-error hover:bg-terminal-error/10 transition-colors duration-200"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        {/* Links */}
+        <div className="flex flex-wrap gap-3">
+          {project.links.map((link, index) => (
+            <a
+              key={index}
+              href={link.url}
+              className="inline-flex items-center gap-2 text-terminal-secondary no-underline text-sm sm:text-base font-mono font-bold px-4 py-2 border border-terminal-secondary rounded-md transition-all duration-300 hover:text-terminal-bg-primary hover:bg-terminal-secondary hover:scale-105 focus:outline-none focus:ring-2 focus:ring-terminal-primary focus:ring-offset-2 focus:ring-offset-terminal-bg-primary"
+              aria-label={`${link.label.replace(/[\[\]]/g, '')} for ${project.title}`}
+            >
+              <span>🔗</span>
+              {link.label}
+            </a>
+          ))}
+        </div>
       </div>
       
-      <p className="text-terminal-green opacity-90 leading-relaxed mb-4">
-        {project.description}
-      </p>
-      
-      <div className="flex flex-wrap gap-2 mt-4">
-        {project.technologies.map((tech, index) => (
-          <span
-            key={index}
-            className="text-sm py-1 px-2 border border-terminal-magenta text-terminal-magenta"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-      
-      <div className="mt-4 flex gap-4">
-        {project.links.map((link, index) => (
-          <a
-            key={index}
-            href={link.url}
-            className="text-terminal-cyan no-underline text-base transition-all duration-300 hover:text-terminal-green hover:drop-shadow-[0_0_5px_currentColor]"
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
-    </div>
+      {/* Hover effect indicator */}
+      <div className="h-1 bg-gradient-to-r from-terminal-primary via-terminal-secondary to-terminal-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+    </article>
   );
 };
 
 export const Projects = () => {
   return (
-    <section className="my-20" id="projects">
-      <h2 className="text-center text-4xl mb-10 text-terminal-cyan">
-        {'> FEATURED PROJECTS'}
-      </h2>
+    <section className="py-16 sm:py-20 lg:py-24" id="projects">
+      {/* Section header */}
+      <header className="text-center mb-12 sm:mb-16">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl text-terminal-secondary mb-4 font-mono">
+          {'> FEATURED_PROJECTS/'}
+        </h2>
+        <div className="w-24 h-1 bg-terminal-secondary mx-auto rounded-full"></div>
+        <p className="mt-4 text-terminal-text-secondary text-sm sm:text-base">
+          A showcase of my recent work and contributions
+        </p>
+      </header>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+      {/* Projects grid - responsive layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
+      </div>
+      
+      {/* Call to action */}
+      <div className="mt-12 sm:mt-16 text-center">
+        <p className="text-terminal-text-secondary text-sm sm:text-base mb-4">
+          Want to see more of my work?
+        </p>
+        <a
+          href="https://github.com/aaronlin"
+          className="inline-flex items-center gap-3 text-terminal-primary no-underline text-base sm:text-lg font-mono font-bold px-6 py-3 border-2 border-terminal-primary rounded-lg transition-all duration-300 hover:text-terminal-bg-primary hover:bg-terminal-primary hover:scale-105 focus:outline-none focus:ring-2 focus:ring-terminal-primary focus:ring-offset-2 focus:ring-offset-terminal-bg-primary"
+        >
+          <span>👨‍💻</span>
+          View All Projects on GitHub
+        </a>
       </div>
     </section>
   );

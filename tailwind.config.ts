@@ -10,26 +10,55 @@ const config: Config = {
     extend: {
       colors: {
         'terminal': {
-          'green': '#00ff00',
-          'dark-green': '#00aa00',
-          'amber': '#ffb000',
-          'cyan': '#00ffff',
-          'magenta': '#ff00ff',
-          'purple': '#9945ff',
-          'bg-dark': '#0a0a0a',
-          'bg-terminal': '#000000',
-          'text-dim': '#666666',
-          'glitch-red': '#ff0040',
-          'glitch-blue': '#0080ff',
+          // New eye-friendly color palette
+          'primary': '#06d6a0',         // Mint green - main accent
+          'secondary': '#118ab2',       // Professional blue
+          'accent': '#ffd60a',          // Warm yellow
+          'error': '#f72585',           // Pink for glitch effects
+          
+          // Background colors (softer than pure black)
+          'bg-primary': '#0f172a',      // Slate 900 - main background
+          'bg-secondary': '#1e293b',    // Slate 800 - elevated surfaces
+          'bg-tertiary': '#334155',     // Slate 600 - subtle divisions
+          
+          // Text colors
+          'text-primary': '#f1f5f9',    // Slate 100 - main text
+          'text-secondary': '#cbd5e1',  // Slate 300 - secondary text
+          'text-dim': '#64748b',        // Slate 500 - muted text
+          
+          // Legacy colors for backwards compatibility
+          'green': '#06d6a0',           // Updated to new primary
+          'dark-green': '#059669',      // Darker mint green
+          'amber': '#ffd60a',          // Updated to new accent
+          'cyan': '#118ab2',           // Updated to new secondary
+          'magenta': '#f72585',        // Updated to new error
+          'purple': '#8b5cf6',         // Softer purple
+          'bg-dark': '#1e293b',        // Updated to new secondary bg
+          'bg-terminal': '#0f172a',    // Updated to new primary bg
+          'glitch-red': '#f72585',     // Updated to new error
+          'glitch-blue': '#118ab2',    // Updated to new secondary
         }
       },
       fontFamily: {
         'mono': ['VT323', 'monospace'],
       },
       fontSize: {
-        'terminal': '20px',
-        'ascii': '14px',
-        'ascii-mobile': '8px',
+        // Fluid typography using clamp()
+        'xs': 'clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)',
+        'sm': 'clamp(0.875rem, 0.8rem + 0.375vw, 1rem)',
+        'base': 'clamp(1rem, 0.9rem + 0.5vw, 1.125rem)',
+        'lg': 'clamp(1.125rem, 1rem + 0.625vw, 1.25rem)',
+        'xl': 'clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem)',
+        '2xl': 'clamp(1.5rem, 1.3rem + 1vw, 2rem)',
+        '3xl': 'clamp(1.875rem, 1.5rem + 1.875vw, 2.25rem)',
+        '4xl': 'clamp(2rem, 1.5rem + 2.5vw, 3rem)',
+        '5xl': 'clamp(2.5rem, 2rem + 2.5vw, 3.5rem)',
+        
+        // Terminal-specific sizes
+        'terminal': 'clamp(1rem, 0.9rem + 0.5vw, 1.25rem)',
+        'terminal-lg': 'clamp(1.125rem, 1rem + 0.625vw, 1.375rem)',
+        'ascii': 'clamp(0.5rem, 0.4rem + 0.5vw, 0.875rem)',
+        'ascii-lg': 'clamp(0.625rem, 0.5rem + 0.625vw, 1rem)',
       },
       animation: {
         'flicker': 'flicker 0.15s infinite',
@@ -125,6 +154,33 @@ const config: Config = {
       },
       backgroundSize: {
         'scanline': '100% 4px',
+      },
+      spacing: {
+        // 8pt grid system for consistent spacing
+        '18': '4.5rem',   // 72px
+        '22': '5.5rem',   // 88px
+        '26': '6.5rem',   // 104px
+        '30': '7.5rem',   // 120px
+        '34': '8.5rem',   // 136px
+      },
+      maxWidth: {
+        // Custom container sizes
+        'xs': '20rem',     // 320px
+        'sm': '40rem',     // 640px  
+        'md': '48rem',     // 768px
+        'lg': '64rem',     // 1024px
+        'xl': '80rem',     // 1280px
+        '2xl': '96rem',    // 1536px
+        'terminal': '90rem', // 1440px - optimal for terminal content
+      },
+      screens: {
+        // Custom breakpoints for better responsive design
+        'xs': '475px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
       },
     },
   },
